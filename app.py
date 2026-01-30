@@ -44,6 +44,14 @@ def form():
 
     return render_template("form.html", error=error)
 
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo():
+    data = request.json
+    collection.insert_one({
+        "itemName": data["itemName"],
+        "itemDescription": data["itemDescription"]
+    })
+    return jsonify({"message": "Todo item stored"})
 
 if __name__ == "__main__":
     app.run(debug=True)
